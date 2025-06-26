@@ -66,7 +66,42 @@
             :key="item.id"
             v-if="cart.length>0"
           >
-            <h5 class="item-name" style="color: white;">${{item.name}}</h5>
+            <img
+              class="order-item-image"
+              :src="`./images/${item.image}`"
+              alt="BISMARCK"
+            />
+            <div class="order-item-content" style="color: #fff">
+              <h5>{{item.name}} - ${{item.price.toFixed(2)}}</h5>
+              <p>
+                <button
+                  type="button"
+                  class="add"
+                  @click="cart.splice(index, 1)"
+                >
+                  +
+                </button>
+                <button
+                  type="button"
+                  class="remove"
+                  @click="cart.splice(index, 1)"
+                >
+                  -
+                </button>
+
+                <div class="order-item-deails">
+                  <span class="calories">
+                       <strong>calories:</strong> {{item.calories}}
+                  </span>
+                   <span class="calories">
+                       <strong>Squirrels:</strong> {{item.squirrels}}
+                  </span>
+                  <span class="fats">
+                       <strong>Fats:</strong> {{item.fats}}
+                </div>
+
+              </p>
+            </div>
           </div>
           <div class="cart-empty" v-if="cart.length == 0">
             <p class="text-center">Your basket is empty</p>
