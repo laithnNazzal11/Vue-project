@@ -68,15 +68,51 @@ Vue.createApp({
         },
       ],
       cart: [
-        {
-          id: 1,
-          image: "pizza-1.png",
-          name: "BISMARCK",
-          price: 30,
-          calories: "800 kcal",
-          fats: "50 g",
-        },
+        // {
+        //   id: 1,
+        //   image: "pizza-1.png",
+        //   name: "BISMARCK",
+        //   price: 30,
+        //   calories: "800 kcal",
+        //   fats: "50 g",
+        // },
       ],
     };
+  },
+  methods: {
+    addItemToCart(item) {
+      const index = this.cart.findIndex((pizze) => pizze.id == item.id);
+      if (index !== -1) {
+        this.cart[index].quantity++;
+      } else {
+        this.cart.push({ ...item, quantity: 1 });
+      }
+      console.log(item);
+    },
+
+    addQuantity(item) {
+      const index = this.cart.findIndex((pizze) => pizze.id == item.id);
+      if (index !== -1) {
+        this.cart[index].quantity++;
+      }
+    },
+    minQuantity(item) {
+      const index = this.cart.findIndex((pizze) => pizze.id == item.id);
+      if (index !== -1) {
+        if(this.cart[index].quantity>1){
+        this.cart[index].quantity--;
+        } else {
+          this.cart = this.cart.filter((pizze)=>(pizze.id !== item.id))
+        }
+      }
+    },
+    getTotalPrice() {
+      let total = 0 
+      this.cart.map((item)=>{
+       total+= item.price * item.quantity
+      })
+      return total.toFixed(2)
+
+    },
   },
 }).mount("#pizza-restaurant");
